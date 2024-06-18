@@ -1,0 +1,237 @@
+<Ui xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Frame.lua" />
+	<AnimationGroup looping="NONE" />
+	<Frame name="MainFrame" inherits="BasicFrameTemplate" parent="UIParent" toplevel="true" movable="true" enableMouse="true">
+		<Size x="206" y="177" />
+		<Anchors>
+			<Anchor x="-180" y="-84" point="CENTER" />
+		</Anchors>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
+		</KeyValues>
+		<TitleRegion setAllPoints="true">
+			<Size>
+				<AbsDimension x="100" y="30" />
+			</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" />
+				<Anchor point="TOPRIGHT" />
+			</Anchors>
+		</TitleRegion>
+		<Frames>
+			<Frame name="BuffFrame" inherits="BackdropTemplate" parent="MainFrame">
+				<Size x="199" y="79" />
+				<Anchors>
+					<Anchor x="3" y="-22" point="TOPLEFT" />
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
+				</KeyValues>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="SynergyLabel" inherits="GameFontNormalTiny" text="Synergy">
+							<Size x="36" y="20" />
+							<Anchors>
+								<Anchor x="57" y="-9" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="DemonArmorLabel" inherits="GameFontNormalTiny" text="Armor">
+							<Size x="36" y="20" />
+							<Anchors>
+								<Anchor x="15" y="-9" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="LifeTapLabel" inherits="GameFontNormalTiny" text="Life Tap">
+							<Size x="36" y="20" />
+							<Anchors>
+								<Anchor x="99" y="-9" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="DrainSoulLabel" inherits="GameFontNormalTiny" text="Drain Soul">
+							<Size x="36" y="20" />
+							<Anchors>
+								<Anchor x="144" y="-9" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="DemonArmorButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="15" y="-28" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Demon Armor" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\spell_shadow_ragingscream" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="SynergyButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="57" y="-28" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Grimoire of Synergy" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\inv_misc_book_06" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="LifeTapButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="99" y="-28" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Life Tap" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\spell_shadow_burningspirit" />
+						<HighlightTexture file="Interface\ICONS\spell_shadow_burningspirit" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="DrainSoulButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="144" y="-28" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Drain Soul" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\spell_shadow_haunting" />
+						<HighlightTexture file="Interface\ICONS\spell_shadow_haunting" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+				</Frames>
+			</Frame>
+			<Frame name="SpellFrame" inherits="BackdropTemplate" parent="MainFrame">
+				<Size x="199" y="79" />
+				<Anchors>
+					<Anchor x="4" y="-94" point="TOPLEFT" />
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
+				</KeyValues>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="ConflagLabel" inherits="GameFontNormalTiny" text="Conflag">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="50" y="-50" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="ChaosBoltLabel" inherits="GameFontNormalTiny" text="Chaos B">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="93" y="-50" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="IncinerateLabel" inherits="GameFontNormalTiny" text="Incinerate">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="140" y="-49" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="ImmolateLabel" inherits="GameFontNormalTiny" text="Immolate">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="9" y="-49" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="ImmolateButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="14" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Immolate" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\spell_fire_immolation" />
+						<HighlightTexture file="Interface\ICONS\spell_fire_immolation" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="ConflagButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="56" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Conflagrate" />
+						</Attributes>
+						<Frames>
+							<Cooldown name="ConflagCooldown" inherits="CooldownFrameTemplate">
+								<Size x="46" y="48" />
+								<Anchors>
+									<Anchor x="1" point="TOPLEFT" />
+								</Anchors>
+							</Cooldown>
+						</Frames>
+						<NormalTexture file="Interface\ICONS\spell_fire_fireball" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="IncinerateButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="143" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Incinerate" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\Spell_Fire_Burnout" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="ChaosBoltButton" inherits="SecureActionButtonTemplate" toplevel="true" text="">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="98" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Chaos Bolt" />
+						</Attributes>
+						<Frames>
+							<Cooldown name="ChaosBoltCooldown" inherits="CooldownFrameTemplate">
+								<Size x="45" y="49" />
+								<Anchors>
+									<Anchor x="2" y="-1" point="TOPLEFT" />
+								</Anchors>
+							</Cooldown>
+						</Frames>
+						<NormalTexture file="Interface\ICONS\Ability_Warlock_ChaosBolt" />
+						<NormalFont style="GameFontNormalTiny" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad inherit="prepend">
+				self:RegisterForDrag("LeftButton")
+				MainFrame_OnLoad()
+			</OnLoad>
+			<OnDragStart>
+				self:StartMoving()
+			</OnDragStart>
+			<OnDragStop>
+				self:StopMovingOrSizing()
+			</OnDragStop>
+		</Scripts>
+	</Frame>
+</Ui>

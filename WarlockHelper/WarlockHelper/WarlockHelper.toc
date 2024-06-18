@@ -1,0 +1,6 @@
+## Title: WarlockHelper
+## Version: 1.0
+## Author: markc
+## Interface: 80205
+
+Frame.xml
