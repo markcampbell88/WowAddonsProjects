@@ -12,28 +12,52 @@ local function IsDemonArmorActive()
     end
 end
 
-function SetupMacros()	
+function SetupMacrosDetail(assistTarget)
+
+    local macroString = [[/assist %s
+/petattack
+/cast %s]]
+    local immolateString = ""
+    local incinerateString = ""
+    local conflagString = ""
+    local chaosBoltString = ""
+    local shadowBoltString = ""
+
+    if assistTarget == "None" then
+            macroString = [[/petattack
+/cast %s]]
+        immolateString = string.format(macroString, "Immolate")
+        incinerateString = string.format(macroString, "Incinerate")
+        conflagString = string.format(macroString, "Conflagrate")
+        chaosBoltString = string.format(macroString, "Chaos Bolt")
+        shadowBoltString = string.format(macroString, "Shadow Bolt")
+    else
+        immolateString = string.format(macroString, assistTarget, "Immolate")
+        incinerateString = string.format(macroString, assistTarget, "Incinerate")
+        conflagString = string.format(macroString, assistTarget, "Conflagrate")
+        chaosBoltString = string.format(macroString, assistTarget, "Chaos Bolt")
+        shadowBoltString = string.format(macroString, assistTarget, "Shadow Bolt")
+	end
+
     ImmolateButton:SetAttribute("type1", "macro")
-    ImmolateButton:SetAttribute("macrotext1", [[/petattack
-/cast Immolate]])
+    ImmolateButton:SetAttribute("macrotext1", immolateString)
 
     IncinerateButton:SetAttribute("type1", "macro")
-    IncinerateButton:SetAttribute("macrotext1", [[/petattack
-/cast Incinerate]])
+    IncinerateButton:SetAttribute("macrotext1", incinerateString)
 
     ConflagButton:SetAttribute("type1", "macro")
-    ConflagButton:SetAttribute("macrotext1", [[/petattack
-/cast Conflagrate]])
+    ConflagButton:SetAttribute("macrotext1", conflagString)
 
     ChaosBoltButton:SetAttribute("type1", "macro")
-    ChaosBoltButton:SetAttribute("macrotext1", [[/petattack
-/cast Chaos Bolt]])
+    ChaosBoltButton:SetAttribute("macrotext1", chaosBoltString)
+
+    ShadowBoltButton:SetAttribute("type1", "macro")
+    ShadowBoltButton:SetAttribute("macrotext1", shadowBoltString)
 end
 
-
-
-
-
+function SetupMacros()
+    SetupMacrosDetail("None")
+end
 
 
 --[[
@@ -60,7 +84,7 @@ function MainFrame_OnLoad()
     SetupMacros()
 
 	print("WarlockHelper loaded")
-    print("isDemonArmorActive " .. tostring(IsDemonArmorActive()))
+    -- print("isDemonArmorActive " .. tostring(IsDemonArmorActive()))
 
 end
 
@@ -73,42 +97,87 @@ function Button2_OnClick()
     end   
 end
 
-local playerGUID = UnitGUID("player")
-local MSG_DEBUG_SPELL_EVENT = "subevent %s spellID %d"
 
-local EventFrame = CreateFrame("Frame")
-EventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-EventFrame:SetScript("OnEvent", function(self, event)
-	local _, subevent, _, sourceGUID, _, _, _, _, destName = CombatLogGetCurrentEventInfo()
-	local spellId
-
-    if sourceGUID == playerGUID then
-        if subevent == "SPELL_CAST_SUCCESS" or subevent == "SPELL_MISSED" then
-	   	    spellId, _, _, amount, _, _, _, _, _, critical = select(12, CombatLogGetCurrentEventInfo())
-
-            -- print(MSG_DEBUG_SPELL_EVENT:format(subevent, spellId))
-            if spellId then
-                -- Chaos Bolt
-                if spellId == 403629 then
-                    ChaosBoltCooldown:SetCooldown(GetTime(),12)
-                -- Conflag
-                elseif spellId == 18930 then
-                    ConflagCooldown:SetCooldown(GetTime(),10)
-                -- Immolate
-                elseif spellId == 11667 then
-                    print("Immolate")
-				end
-	        end
-        end
-
+function ShowMiscButton_OnClick()
+    if MiscSpellFrame:IsShown() then
+	else
+        MiscSpellFrame:Show()
+        CombatSpellFrame:Hide()
 	end
-
-end)
-
-
-SLASH_WARLOCKHELPER_WH1 = "/wh"
-SlashCmdList["WARLOCKHELPER_WH"] = function(msg, editBox)
-    -- Show the main window
-    MainFrame:Show()
+		
 end
 
+
+function ShowCombatButton_OnClick()
+    if CombatSpellFrame:IsShown() then
+	else
+        CombatSpellFrame:Show()
+        MiscSpellFrame:Hide()
+	end 
+end
+
+function getPartyRaidList()
+    local plist={}
+    if IsInRaid() then
+        for i=1,40 do
+            if (UnitName('raid'..i)) then
+                tinsert(plist,(UnitName('raid'..i)))
+            end
+        end
+    elseif IsInGroup() then
+        for i=1,4 do
+            if (UnitName('party'..i)) then
+                tinsert(plist,(UnitName('party'..i)))
+            end
+        end
+    end
+    if debugOn then
+        for i=1,#plist do
+            print("getPartyRaidList " .. plist[i])
+	    end
+	end
+    return plist
+end
+
+function PartyTargetSelected(self, arg1, arg2, checked)
+    if debugOn then
+        print("PartyTargetSelected")
+        print(self)
+        print(self.value)
+        print(arg1)
+        print(arg2)
+        print(checked)
+	end
+    UIDropDownMenu_SetSelectedName(TargetDropDownMenu, self.value, useValue)
+
+    -- Setup the macros with the name
+    SetupMacrosDetail(self.value)
+end
+
+function TargetDropDownMenu_OnLoad()
+    info            = {};
+    info.text       = "Item Called ";
+    info.value      = "OptionVariable";
+ 
+    
+	local partyList = getPartyRaidList()
+    local info = UIDropDownMenu_CreateInfo();
+    info.text = "None"
+    info.value = "None"
+    info.func = PartyTargetSelected
+    UIDropDownMenu_AddButton(info);
+    for i=1,#partyList do
+        if debugOn then
+            print("Party Member: " .. partyList[i])
+		end
+
+        info.text = partyList[i]
+        info.value = partyList[i]
+        info.func = PartyTargetSelected
+        UIDropDownMenu_AddButton(info);
+	end
+	
+end
+
+
+ 

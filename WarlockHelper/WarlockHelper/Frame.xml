@@ -2,9 +2,9 @@
 	<Script file="Frame.lua" />
 	<AnimationGroup looping="NONE" />
 	<Frame name="MainFrame" inherits="BasicFrameTemplate" parent="UIParent" toplevel="true" movable="true" enableMouse="true">
-		<Size x="206" y="177" />
+		<Size x="244" y="265" />
 		<Anchors>
-			<Anchor x="-180" y="-84" point="CENTER" />
+			<Anchor x="-188" y="-96" point="CENTER" />
 		</Anchors>
 		<KeyValues>
 			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
@@ -19,10 +19,248 @@
 			</Anchors>
 		</TitleRegion>
 		<Frames>
-			<Frame name="BuffFrame" inherits="BackdropTemplate" parent="MainFrame">
-				<Size x="199" y="79" />
+			<Button name="ShowMiscButton" inherits="UIPanelButtonTemplate" text="Misc">
+				<Size x="75" y="23" />
 				<Anchors>
-					<Anchor x="3" y="-22" point="TOPLEFT" />
+					<Anchor x="84" y="-27" point="TOPLEFT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						ShowMiscButton_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="ShowCombatButton" inherits="UIPanelButtonTemplate" text="Combat">
+				<Size x="75" y="23" />
+				<Anchors>
+					<Anchor x="3" y="-27" point="TOPLEFT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						ShowCombatButton_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Frame name="CombatSpellFrame" inherits="BackdropTemplate" parent="MainFrame" movable="true" enableMouse="true">
+				<Size x="237" y="118" />
+				<Anchors>
+					<Anchor x="3" y="-56" point="TOPLEFT" />
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
+				</KeyValues>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="ConflagLabel" inherits="GameFontNormalTiny" text="Conflag">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="50" y="-50" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="ChaosBoltLabel" inherits="GameFontNormalTiny" text="Chaos B">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="93" y="-50" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="IncinerateLabel" inherits="GameFontNormalTiny" text="Incinerate">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="140" y="-49" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="ImmolateLabel" inherits="GameFontNormalTiny" text="Immolate">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="9" y="-49" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="ShadowBoltLabel" inherits="GameFontNormalTiny" text="Shadow Bolt">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="188" y="-49" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="ImmolateButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="14" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Immolate" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\spell_fire_immolation" />
+						<HighlightTexture file="Interface\ICONS\spell_fire_immolation" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="ConflagButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="56" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Conflagrate" />
+						</Attributes>
+						<Frames>
+							<Cooldown name="ConflagCooldown" inherits="CooldownFrameTemplate">
+								<Size x="46" y="48" />
+								<Anchors>
+									<Anchor x="1" point="TOPLEFT" />
+								</Anchors>
+							</Cooldown>
+						</Frames>
+						<NormalTexture file="Interface\ICONS\spell_fire_fireball" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="IncinerateButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="143" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Incinerate" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\Spell_Fire_Burnout" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="ChaosBoltButton" inherits="SecureActionButtonTemplate" toplevel="true" text="">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="98" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Chaos Bolt" />
+						</Attributes>
+						<Frames>
+							<Cooldown name="ChaosBoltCooldown" inherits="CooldownFrameTemplate">
+								<Size x="45" y="49" />
+								<Anchors>
+									<Anchor x="2" y="-1" point="TOPLEFT" />
+								</Anchors>
+							</Cooldown>
+						</Frames>
+						<NormalTexture file="Interface\ICONS\Ability_Warlock_ChaosBolt" />
+						<NormalFont style="GameFontNormalTiny" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="ShadowBoltButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="186" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Shadow Bolt" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\spell_shadow_shadowbolt" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Frame name="TargetDropDownMenu" inherits="UIDropDownMenuTemplate">
+						<Size x="153" y="34" />
+						<Anchors>
+							<Anchor x="18" y="-66" point="TOPLEFT" />
+						</Anchors>
+						<KeyValues>
+							<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
+						</KeyValues>
+						<Scripts>
+							<OnLoad>
+								UIDropDownMenu_Initialize(self, TargetDropDownMenu_OnLoad);
+							</OnLoad>
+						</Scripts>
+					</Frame>
+				</Frames>
+			</Frame>
+			<Frame name="MiscSpellFrame" inherits="BackdropTemplate" hidden="true" movable="true" enableMouse="true">
+				<Size x="237" y="118" />
+				<Anchors>
+					<Anchor x="3" y="-56" point="TOPLEFT" />
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
+				</KeyValues>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="SoulstoneLabel" inherits="GameFontNormalTiny" text="Soulstone">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="10" y="-49" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="SummonLabel" inherits="GameFontNormalTiny" text="Summon">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="50" y="-49" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="SummonPortalLabel" inherits="GameFontNormalTiny" text="Summon Portal">
+							<Size x="48" y="20" />
+							<Anchors>
+								<Anchor x="93" y="-49" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="SoulstoneButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="14" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Create Soulstone (Greater)" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\inv_misc_orb_04" />
+						<HighlightTexture file="Interface\ICONS\inv_misc_orb_04" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="SummonButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="56" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Ritual of Summoning" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\spell_shadow_twilight" />
+						<HighlightTexture file="Interface\ICONS\spell_shadow_twilight" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="SummonPortalButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="98" y="-15" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Portal of Summoning" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\inv_misc_rune_10" />
+						<HighlightTexture file="Interface\ICONS\inv_misc_rune_10" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+				</Frames>
+			</Frame>
+			<Frame name="BuffFrame" inherits="BackdropTemplate" parent="MainFrame" movable="true" enableMouse="true">
+				<Size x="236" y="79" />
+				<Anchors>
+					<Anchor x="3" y="-174" point="TOPLEFT" />
 				</Anchors>
 				<KeyValues>
 					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
@@ -108,114 +346,6 @@
 						<NormalTexture file="Interface\ICONS\spell_shadow_haunting" />
 						<HighlightTexture file="Interface\ICONS\spell_shadow_haunting" />
 						<NormalFont style="GameFontNormal" />
-						<HighlightFont style="GameFontHighlight" />
-					</Button>
-				</Frames>
-			</Frame>
-			<Frame name="SpellFrame" inherits="BackdropTemplate" parent="MainFrame">
-				<Size x="199" y="79" />
-				<Anchors>
-					<Anchor x="4" y="-94" point="TOPLEFT" />
-				</Anchors>
-				<KeyValues>
-					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
-				</KeyValues>
-				<Layers>
-					<Layer level="OVERLAY">
-						<FontString name="ConflagLabel" inherits="GameFontNormalTiny" text="Conflag">
-							<Size x="48" y="20" />
-							<Anchors>
-								<Anchor x="50" y="-50" point="TOPLEFT" />
-							</Anchors>
-						</FontString>
-						<FontString name="ChaosBoltLabel" inherits="GameFontNormalTiny" text="Chaos B">
-							<Size x="48" y="20" />
-							<Anchors>
-								<Anchor x="93" y="-50" point="TOPLEFT" />
-							</Anchors>
-						</FontString>
-						<FontString name="IncinerateLabel" inherits="GameFontNormalTiny" text="Incinerate">
-							<Size x="48" y="20" />
-							<Anchors>
-								<Anchor x="140" y="-49" point="TOPLEFT" />
-							</Anchors>
-						</FontString>
-						<FontString name="ImmolateLabel" inherits="GameFontNormalTiny" text="Immolate">
-							<Size x="48" y="20" />
-							<Anchors>
-								<Anchor x="9" y="-49" point="TOPLEFT" />
-							</Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Frames>
-					<Button name="ImmolateButton" inherits="SecureActionButtonTemplate" toplevel="true">
-						<Size x="36" y="36" />
-						<Anchors>
-							<Anchor x="14" y="-15" point="TOPLEFT" />
-						</Anchors>
-						<Attributes>
-							<Attribute name="type" value="spell" />
-							<Attribute name="spell" value="Immolate" />
-						</Attributes>
-						<NormalTexture file="Interface\ICONS\spell_fire_immolation" />
-						<HighlightTexture file="Interface\ICONS\spell_fire_immolation" />
-						<NormalFont style="GameFontNormal" />
-						<HighlightFont style="GameFontHighlight" />
-					</Button>
-					<Button name="ConflagButton" inherits="SecureActionButtonTemplate" toplevel="true">
-						<Size x="36" y="36" />
-						<Anchors>
-							<Anchor x="56" y="-15" point="TOPLEFT" />
-						</Anchors>
-						<Attributes>
-							<Attribute name="type" value="spell" />
-							<Attribute name="spell" value="Conflagrate" />
-						</Attributes>
-						<Frames>
-							<Cooldown name="ConflagCooldown" inherits="CooldownFrameTemplate">
-								<Size x="46" y="48" />
-								<Anchors>
-									<Anchor x="1" point="TOPLEFT" />
-								</Anchors>
-							</Cooldown>
-						</Frames>
-						<NormalTexture file="Interface\ICONS\spell_fire_fireball" />
-						<NormalFont style="GameFontNormal" />
-						<HighlightFont style="GameFontHighlight" />
-					</Button>
-					<Button name="IncinerateButton" inherits="SecureActionButtonTemplate" toplevel="true">
-						<Size x="36" y="36" />
-						<Anchors>
-							<Anchor x="143" y="-15" point="TOPLEFT" />
-						</Anchors>
-						<Attributes>
-							<Attribute name="type" value="spell" />
-							<Attribute name="spell" value="Incinerate" />
-						</Attributes>
-						<NormalTexture file="Interface\ICONS\Spell_Fire_Burnout" />
-						<NormalFont style="GameFontNormal" />
-						<HighlightFont style="GameFontHighlight" />
-					</Button>
-					<Button name="ChaosBoltButton" inherits="SecureActionButtonTemplate" toplevel="true" text="">
-						<Size x="36" y="36" />
-						<Anchors>
-							<Anchor x="98" y="-15" point="TOPLEFT" />
-						</Anchors>
-						<Attributes>
-							<Attribute name="type" value="spell" />
-							<Attribute name="spell" value="Chaos Bolt" />
-						</Attributes>
-						<Frames>
-							<Cooldown name="ChaosBoltCooldown" inherits="CooldownFrameTemplate">
-								<Size x="45" y="49" />
-								<Anchors>
-									<Anchor x="2" y="-1" point="TOPLEFT" />
-								</Anchors>
-							</Cooldown>
-						</Frames>
-						<NormalTexture file="Interface\ICONS\Ability_Warlock_ChaosBolt" />
-						<NormalFont style="GameFontNormalTiny" />
 						<HighlightFont style="GameFontHighlight" />
 					</Button>
 				</Frames>

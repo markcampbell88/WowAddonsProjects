@@ -10,6 +10,12 @@
     <OutputPath>.</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Events.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="slash.lua">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="WarlockHelper.toc">
       <SubType>TableOfContents</SubType>
     </Content>
