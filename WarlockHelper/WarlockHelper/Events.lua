@@ -4,7 +4,10 @@ local EventFrame, events = CreateFrame("Frame"), {};
 
 local playerGUID = UnitGUID("player")
 local MSG_DEBUG_SPELL_EVENT = "subevent %s spellID %d"
+local MSG_DEBUG_UNIT_AURA = "UNIT_AURA unit: %s"
+local MSG_DEBUG_PlayerAuras = "PlayerAuras Demon/Grimoire "
 local debugOn = false
+
 
 function events:PLAYER_ENTERING_WORLD(...)
     if debugOn then
@@ -19,7 +22,64 @@ function events:PLAYER_LEAVING_WORLD(...)
 
 end
 
+local DemonArmorSpellId = 11734
+local GrimoireOfSynergySpellId = 426301
+local DemonArmorActive = false
+local GrimoireOfSynergyActive = false
 
+local function dumpAuras()
+    if debugOn then
+        print(MSG_DEBUG_PlayerAuras,DemonArmorActive,GrimoireOfSynergyActive)
+	end
+end
+
+local function UpdatePlayerAuras()
+    local buffNumber = 1
+    local name, _, _, _, duration, expirationTime, _, _, _,spellId = UnitAura("player", buffNumber, "HELPFUL") 
+    local newDemonActive = false
+    local newGrimoireActive = false
+    while (name) do
+        if spellId == DemonArmorSpellId then
+		    newDemonActive = true
+        end
+        if spellId == GrimoireOfSynergySpellId then
+		    newGrimoireActive = true
+        end
+        buffNumber = buffNumber + 1
+        name, _, _, _, duration, expirationTime, _, _, _,spellId = UnitAura("player", buffNumber, "HELPFUL") 
+	end
+    DemonArmorActive = newDemonActive
+    GrimoireOfSynergyActive = newGrimoireActive
+end
+
+local function UpdatePlayerAurasFull()
+    UpdatePlayerAuras()
+end
+local function UpdatePlayerAurasIncremental(unitAuraUpdateInfo)
+    UpdatePlayerAuras()
+end
+
+function events:UNIT_AURA(...)
+    local args = {...}  -- Store all arguments in a table named 'args'
+    local unit = args[1]
+    local unitAuraUpdateInfo = args[2]
+
+    if debugOn then
+        print(MSG_DEBUG_UNIT_AURA:format(unit))
+	end
+
+    if unit ~= "player" then
+        return
+    end
+
+    if unitAuraUpdateInfo == nil or unitAuraUpdateInfo.isFullUpdate then
+        UpdatePlayerAurasFull()
+    else
+        UpdatePlayerAurasIncremental(unitAuraUpdateInfo)
+    end
+
+    dumpAuras()
+end
 
 
 

@@ -1,6 +1,5 @@
 <Ui xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Frame.lua" />
-	<AnimationGroup looping="NONE" />
 	<Frame name="MainFrame" inherits="BasicFrameTemplate" parent="UIParent" toplevel="true" movable="true" enableMouse="true">
 		<Size x="244" y="265" />
 		<Anchors>
@@ -9,42 +8,11 @@
 		<KeyValues>
 			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
 		</KeyValues>
-		<TitleRegion setAllPoints="true">
-			<Size>
-				<AbsDimension x="100" y="30" />
-			</Size>
-			<Anchors>
-				<Anchor point="TOPLEFT" />
-				<Anchor point="TOPRIGHT" />
-			</Anchors>
-		</TitleRegion>
 		<Frames>
-			<Button name="ShowMiscButton" inherits="UIPanelButtonTemplate" text="Misc">
-				<Size x="75" y="23" />
-				<Anchors>
-					<Anchor x="84" y="-27" point="TOPLEFT" />
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						ShowMiscButton_OnClick()
-					</OnClick>
-				</Scripts>
-			</Button>
-			<Button name="ShowCombatButton" inherits="UIPanelButtonTemplate" text="Combat">
-				<Size x="75" y="23" />
-				<Anchors>
-					<Anchor x="3" y="-27" point="TOPLEFT" />
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						ShowCombatButton_OnClick()
-					</OnClick>
-				</Scripts>
-			</Button>
 			<Frame name="CombatSpellFrame" inherits="BackdropTemplate" parent="MainFrame" movable="true" enableMouse="true">
 				<Size x="237" y="118" />
 				<Anchors>
-					<Anchor x="3" y="-56" point="TOPLEFT" />
+					<Anchor x="4" y="-30" point="TOPLEFT" />
 				</Anchors>
 				<KeyValues>
 					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
@@ -182,10 +150,10 @@
 					</Frame>
 				</Frames>
 			</Frame>
-			<Frame name="MiscSpellFrame" inherits="BackdropTemplate" hidden="true" movable="true" enableMouse="true">
-				<Size x="237" y="118" />
+			<Frame name="SummonSpellFrame" inherits="BackdropTemplate" hidden="true" movable="true" enableMouse="true">
+				<Size x="236" y="79" />
 				<Anchors>
-					<Anchor x="3" y="-56" point="TOPLEFT" />
+					<Anchor x="3" y="-174" point="TOPLEFT" />
 				</Anchors>
 				<KeyValues>
 					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
@@ -257,7 +225,7 @@
 					</Button>
 				</Frames>
 			</Frame>
-			<Frame name="BuffFrame" inherits="BackdropTemplate" parent="MainFrame" movable="true" enableMouse="true">
+			<Frame name="BuffSpellFrame" inherits="BackdropTemplate" parent="MainFrame" movable="true" enableMouse="true">
 				<Size x="236" y="79" />
 				<Anchors>
 					<Anchor x="3" y="-174" point="TOPLEFT" />
@@ -350,6 +318,92 @@
 					</Button>
 				</Frames>
 			</Frame>
+			<Frame name="RuneSpellFrame" inherits="BackdropTemplate" hidden="true" parent="MainFrame" movable="true" enableMouse="true">
+				<Size x="236" y="79" />
+				<Anchors>
+					<Anchor x="3" y="-174" point="TOPLEFT" />
+				</Anchors>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
+				</KeyValues>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="ChaosBoltRuneLabel" inherits="GameFontNormalTiny" text="SB Volley">
+							<Size x="36" y="20" />
+							<Anchors>
+								<Anchor x="57" y="-9" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+						<FontString name="ShadowBoltVolleyRuneLabel" inherits="GameFontNormalTiny" text="Chaos Bolt">
+							<Size x="36" y="20" />
+							<Anchors>
+								<Anchor x="15" y="-9" point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="ChaosBoltRuneButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="15" y="-28" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Chaos Bolt" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\Ability_Warlock_ChaosBolt" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+					<Button name="ShadowBoltVolleyRuneButton" inherits="SecureActionButtonTemplate" toplevel="true">
+						<Size x="36" y="36" />
+						<Anchors>
+							<Anchor x="57" y="-28" point="TOPLEFT" />
+						</Anchors>
+						<Attributes>
+							<Attribute name="type" value="spell" />
+							<Attribute name="spell" value="Shadow Bolt" />
+						</Attributes>
+						<NormalTexture file="Interface\ICONS\spell_shadow_shadowbolt" />
+						<NormalFont style="GameFontNormal" />
+						<HighlightFont style="GameFontHighlight" />
+					</Button>
+				</Frames>
+			</Frame>
+			<Button name="ShowBuffButton" inherits="UIPanelButtonTemplate" enableKeyboard="true" text="Buffs">
+				<Size x="75" y="23" />
+				<Anchors>
+					<Anchor x="13" y="-154" point="TOPLEFT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						ShowBuffButton_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="ShowSummonButton" inherits="UIPanelButtonTemplate" text="Summon">
+				<Size x="75" y="23" />
+				<Anchors>
+					<Anchor x="88" y="-154" point="TOPLEFT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						ShowSummonButton_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="ShowRuneButton" inherits="UIPanelButtonTemplate" enableKeyboard="true" text="Runes">
+				<Size x="75" y="23" />
+				<Anchors>
+					<Anchor x="164" y="-154" point="TOPLEFT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						ShowRuneButton_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
 		</Frames>
 		<Scripts>
 			<OnLoad inherit="prepend">

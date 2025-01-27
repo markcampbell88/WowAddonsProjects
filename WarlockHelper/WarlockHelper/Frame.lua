@@ -59,6 +59,22 @@ function SetupMacros()
     SetupMacrosDetail("None")
 end
 
+function SetupRuneSwapMacros()
+    local SBVRunemacroString = [[/run if C_Engraving.IsRuneEquipped(48352) then C_Engraving.CastRune(48345) end
+/use 10
+/click StaticPopup1Button1]]
+
+    local CBRunemacroString = [[/run if C_Engraving.IsRuneEquipped(48345) then C_Engraving.CastRune(48352) end
+/use 10
+/click StaticPopup1Button1]]
+
+    ChaosBoltRuneButton:SetAttribute("type1", "macro")
+    ChaosBoltRuneButton:SetAttribute("macrotext1", CBRunemacroString)
+
+    ShadowBoltVolleyRuneButton:SetAttribute("type1", "macro")
+    ShadowBoltVolleyRuneButton:SetAttribute("macrotext1", SBVRunemacroString)
+
+end
 
 --[[
 local function UpdateDemonArmorHighlight()
@@ -82,6 +98,7 @@ function MainFrame_OnLoad()
 	print("WarlockHelper loading")
 
     SetupMacros()
+    SetupRuneSwapMacros()
 
 	print("WarlockHelper loaded")
     -- print("isDemonArmorActive " .. tostring(IsDemonArmorActive()))
@@ -98,23 +115,34 @@ function Button2_OnClick()
 end
 
 
-function ShowMiscButton_OnClick()
-    if MiscSpellFrame:IsShown() then
+function ShowSummonButton_OnClick()
+    if SummonSpellFrame:IsShown() then
 	else
-        MiscSpellFrame:Show()
-        CombatSpellFrame:Hide()
+        SummonSpellFrame:Show()
+        BuffSpellFrame:Hide()
+        RuneSpellFrame:Hide()
 	end
 		
 end
 
-
-function ShowCombatButton_OnClick()
-    if CombatSpellFrame:IsShown() then
+function ShowBuffButton_OnClick()
+    if BuffSpellFrame:IsShown() then
 	else
-        CombatSpellFrame:Show()
-        MiscSpellFrame:Hide()
+        BuffSpellFrame:Show()
+        SummonSpellFrame:Hide()
+        RuneSpellFrame:Hide()
 	end 
 end
+
+function ShowRuneButton_OnClick()
+    if RuneSpellFrame:IsShown() then
+	else
+        BuffSpellFrame:Hide()
+        SummonSpellFrame:Hide()
+        RuneSpellFrame:Show()
+	end 
+end
+
 
 function getPartyRaidList()
     local plist={}
